@@ -1,16 +1,16 @@
 # otl-allmaps-iiif-tests
 testing https://AllMaps.org with https://iiif.io map imagery
 
+## Issues
+- When testing one image from a multi-page item (Sanborn map book in the Library of Congress), AllMaps created a bad warp for image 46. See illustration further below.
+- Also when testing the subsequent page (image 47) from the same multi-page item, AllMaps mistakenly carried over georeferenced points from the prior page (image 46). See illustration of problem further below.
+
 ## Feature requests
 - Overall, the georeference interface is clean. But I probably would not understand what to do without prior background using related tools, such as https://mapwarper.net. Maybe add a simple tutorial link and/or screencast in the future? For example, I made this [very quick Mapwarper tutorial](https://handsondataviz.org/mapwarper.html).
 - Would be nice to add a geocoder search box in the right-hand map to find present-day areas more easily, similar to Mapwarper.
 - I accidentally placed markers in wrong places several times while using the current interface, and it was not intuitive for me to remove them. I now see the "list-items hamburger menu" displays marker info and allows users to delete points. Ideas about how to make this feature easier for users to find? Maybe in a future tutorial?
 - When I finished adding Georeference points, it was not intuitive how to tell the tool I was done. I eventually clicked the "Georeference" button, but was worried that it would do the opposite by starting over and refreshing the page. Perhaps the future "Results" button will show a preview?
 - Also in the future "Result" button, please add a transparency slider to allow us to check our work, similar to Mapwarper.
-
-## Issues
-- When testing one image from a multi-page item (Sanborn map book in the Library of Congress), AllMaps created a bad warp for image 46. See illustration further below.
-- Also when testing the subsequent page (image 47) from the same multi-page item, AllMaps mistakenly carried over georeferenced points from the prior page (image 46). See illustration of problem further below.
 
 ## Successful test of single-page map from Harvard Univ, 2 July 2021
 
