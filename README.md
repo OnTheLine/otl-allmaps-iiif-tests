@@ -1,6 +1,24 @@
 # otl-allmaps-iiif-tests
 testing https://AllMaps.org with https://iiif.io map imagery
 
+TODO: explore more with last few slides https://observablehq.com/@bertspaan/allmaps-iiif-annual-conference-2021?collection=@bertspaan/allmaps
+
+Export georeferenced maps to GeoTIFF and map tiles using command-line tools:
+`
+curl https://annotations.allmaps.org/manifests/FufGYuJRpwqSVuNvi \
+  | annotation-to-gdal-script \
+  | /usr/bin/env bash
+`
+
+OR for hosting tiles, see also
+
+https://khufkens.com/2018/09/19/github-tile-server/
+and
+https://github.com/nextgis/QTiles
+instead of
+https://wiki.openstreetmap.org/wiki/User:Ff5722/How_to_create_and_host_tilesets_from_GeoTIFF_images
+
+
 ## Issues
 - When testing one image from a multi-page item (Sanborn map book in the Library of Congress), AllMaps created a bad warp for image 46. See illustration further below.
 - Also when testing the subsequent page (image 47) from the same multi-page item, AllMaps mistakenly carried over georeferenced points from the prior page (image 46). See illustration of problem further below.
@@ -11,14 +29,15 @@ testing https://AllMaps.org with https://iiif.io map imagery
 - I accidentally placed markers in wrong places several times while using the current interface, and it was not intuitive for me to remove them. I now see the "list-items hamburger menu" displays marker info and allows users to delete points. Ideas about how to make this feature easier for users to find? Maybe in a future tutorial?
 - When I finished adding Georeference points, it was not intuitive how to tell the tool I was done. I eventually clicked the "Georeference" button, but was worried that it would do the opposite by starting over and refreshing the page. Perhaps the future "Results" button will show a preview?
 - Also in the future "Result" button, please add a transparency slider to allow us to check our work, similar to Mapwarper.
+- In Viewer, what is "Open a IIIF georeference annotation from a URL" supposed to do? It would be ideal to have an easy way to create a short and pretty link to an AllMaps georeferenced map using only its manifest code stored in https://annotation.allmaps.org. But currently we only seem to have this not-so-pretty link: https://viewer.allmaps.org/#type=annotation&data=data:text/x-url,https%3A%2F%2Fannotations.allmaps.org%2Fmanifests%2FufGYuJRpwqSVuNvi
 
 ## Successful test of single-page map from Harvard Univ, 2 July 2021
 
 - Harvard item https://curiosity.lib.harvard.edu/scanned-maps/catalog/44-990095630650203941
 - Added IIIF manifest link to AllMaps Editor https://iiif.lib.harvard.edu/manifests/ids:5271646
 - Georeferenced in the Editor
-- Copied and pasted the long Annotation code into the AllMaps Viewer annotation window
-- It worked -- [click this very long link](https://viewer.allmaps.org/#data=data%3Aapplication%2Fjson%2C%7B%0A++%22type%22%3A+%22Annotation%22%2C%0A++%22%40context%22%3A+%5B%0A++++%22http%3A%2F%2Fgeojson.org%2Fgeojson-ld%2Fgeojson-context.jsonld%22%2C%0A++++%22http%3A%2F%2Fiiif.io%2Fapi%2Fpresentation%2F3%2Fcontext.json%22%0A++%5D%2C%0A++%22motivation%22%3A+%22georeference%22%2C%0A++%22target%22%3A+%7B%0A++++%22type%22%3A+%22Image%22%2C%0A++++%22source%22%3A+%22https%3A%2F%2Fids.lib.harvard.edu%2Fids%2Fiiif%2F5271646%2Ffull%2Ffull%2F0%2Fdefault.jpg%22%2C%0A++++%22service%22%3A+%5B%0A++++++%7B%0A++++++++%22%40id%22%3A+%22https%3A%2F%2Fids.lib.harvard.edu%2Fids%2Fiiif%2F5271646%22%2C%0A++++++++%22type%22%3A+%22ImageService2%22%2C%0A++++++++%22profile%22%3A+%22http%3A%2F%2Fiiif.io%2Fapi%2Fimage%2F2%2Flevel2.json%22%0A++++++%7D%0A++++%5D%2C%0A++++%22selector%22%3A+%7B%0A++++++%22type%22%3A+%22SvgSelector%22%2C%0A++++++%22value%22%3A+%22%3Csvg+width%3D%5C%2210088%5C%22+height%3D%5C%227039%5C%22%3E%3Cpolygon+points%3D%5C%220%2C0+0%2C7039+10088%2C7039+10088%2C0+0%2C0%5C%22+%2F%3E%3C%2Fsvg%3E%22%0A++++%7D%0A++%7D%2C%0A++%22body%22%3A+%7B%0A++++%22type%22%3A+%22FeatureCollection%22%2C%0A++++%22features%22%3A+%5B%0A++++++%7B%0A++++++++%22type%22%3A+%22Feature%22%2C%0A++++++++%22id%22%3A+%22XpcQtrsTHgLpC7kd%22%2C%0A++++++++%22properties%22%3A+%7B%0A++++++++++%22image%22%3A+%5B%0A++++++++++++1193%2C%0A++++++++++++4338%0A++++++++++%5D%0A++++++++%7D%2C%0A++++++++%22geometry%22%3A+%7B%0A++++++++++%22type%22%3A+%22Point%22%2C%0A++++++++++%22coordinates%22%3A+%5B%0A++++++++++++-72.6698077%2C%0A++++++++++++41.7316111%0A++++++++++%5D%0A++++++++%7D%0A++++++%7D%2C%0A++++++%7B%0A++++++++%22type%22%3A+%22Feature%22%2C%0A++++++++%22id%22%3A+%22jfQdqqq6Q3bf1WuT%22%2C%0A++++++++%22properties%22%3A+%7B%0A++++++++++%22image%22%3A+%5B%0A++++++++++++1389%2C%0A++++++++++++814%0A++++++++++%5D%0A++++++++%7D%2C%0A++++++++%22geometry%22%3A+%7B%0A++++++++++%22type%22%3A+%22Point%22%2C%0A++++++++++%22coordinates%22%3A+%5B%0A++++++++++++-72.7126854%2C%0A++++++++++++41.7319263%0A++++++++++%5D%0A++++++++%7D%0A++++++%7D%2C%0A++++++%7B%0A++++++++%22type%22%3A+%22Feature%22%2C%0A++++++++%22id%22%3A+%22xASQCZZNRaXb6ris%22%2C%0A++++++++%22properties%22%3A+%7B%0A++++++++++%22image%22%3A+%5B%0A++++++++++++4981%2C%0A++++++++++++555%0A++++++++++%5D%0A++++++++%7D%2C%0A++++++++%22geometry%22%3A+%7B%0A++++++++++%22type%22%3A+%22Point%22%2C%0A++++++++++%22coordinates%22%3A+%5B%0A++++++++++++-72.716121%2C%0A++++++++++++41.765576%0A++++++++++%5D%0A++++++++%7D%0A++++++%7D%2C%0A++++++%7B%0A++++++++%22type%22%3A+%22Feature%22%2C%0A++++++++%22id%22%3A+%22REaYFQzihg7qLJSa%22%2C%0A++++++++%22properties%22%3A+%7B%0A++++++++++%22image%22%3A+%5B%0A++++++++++++8796%2C%0A++++++++++++2335%0A++++++++++%5D%0A++++++++%7D%2C%0A++++++++%22geometry%22%3A+%7B%0A++++++++++%22type%22%3A+%22Point%22%2C%0A++++++++++%22coordinates%22%3A+%5B%0A++++++++++++-72.6948681%2C%0A++++++++++++41.800697%0A++++++++++%5D%0A++++++++%7D%0A++++++%7D%2C%0A++++++%7B%0A++++++++%22type%22%3A+%22Feature%22%2C%0A++++++++%22id%22%3A+%22nvrj4trcmchFsZLZ%22%2C%0A++++++++%22properties%22%3A+%7B%0A++++++++++%22image%22%3A+%5B%0A++++++++++++8295%2C%0A++++++++++++4941%0A++++++++++%5D%0A++++++++%7D%2C%0A++++++++%22geometry%22%3A+%7B%0A++++++++++%22type%22%3A+%22Point%22%2C%0A++++++++++%22coordinates%22%3A+%5B%0A++++++++++++-72.6631886%2C%0A++++++++++++41.7964978%0A++++++++++%5D%0A++++++++%7D%0A++++++%7D%2C%0A++++++%7B%0A++++++++%22type%22%3A+%22Feature%22%2C%0A++++++++%22id%22%3A+%224vrNYPqVMbPF2KHg%22%2C%0A++++++++%22properties%22%3A+%7B%0A++++++++++%22image%22%3A+%5B%0A++++++++++++5041%2C%0A++++++++++++4096%0A++++++++++%5D%0A++++++++%7D%2C%0A++++++++%22geometry%22%3A+%7B%0A++++++++++%22type%22%3A+%22Point%22%2C%0A++++++++++%22coordinates%22%3A+%5B%0A++++++++++++-72.6732457%2C%0A++++++++++++41.7661421%0A++++++++++%5D%0A++++++++%7D%0A++++++%7D%0A++++%5D%0A++%7D%0A%7D) -- and be patient for it to appear!
+- In Results tab, clicked on: ...view this map in the Allmaps Viewer
+- It worked! See [link to result](https://viewer.allmaps.org/#type=annotation&data=data:text/x-url,https%3A%2F%2Fannotations.allmaps.org%2Fmanifests%2FufGYuJRpwqSVuNvi)
 
 ## Unsuccessful test of multi-page Sanborn Map, Library of Congress, late June 2021
 
